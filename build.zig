@@ -18,7 +18,7 @@ pub fn build(b: *std.Build) !void {
     b.installArtifact(lib);
 }
 
-pub var repository_url = "https://github.com/hexops/xcode-frameworks";
+pub var repository_url: []const u8 = "https://github.com/hexops/xcode-frameworks";
 
 pub fn addPaths(b: *std.Build, step: *std.build.CompileStep) void {
     xEnsureGitRepoCloned(b.allocator, repository_url, "723aa55e9752c8c6c25d3413722b5fe13d72ac4f", xSdkPath("/zig-cache/xcode_frameworks")) catch |err| @panic(@errorName(err));
