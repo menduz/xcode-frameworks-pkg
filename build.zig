@@ -13,15 +13,17 @@ pub fn build(b: *std.Build) !void {
     lib.addCSourceFiles(&.{"stub.c"}, &.{});
 
     repository_url = "https://github.com/hexops/xcode-frameworks";
+    commit = "723aa55e9752c8c6c25d3413722b5fe13d72ac4f";
     addPaths(b, lib);
 
     b.installArtifact(lib);
 }
 
 pub var repository_url: []const u8 = "https://github.com/hexops/xcode-frameworks";
+pub var commit: []const u8 = "723aa55e9752c8c6c25d3413722b5fe13d72ac4f";
 
 pub fn addPaths(b: *std.Build, step: *std.build.CompileStep) void {
-    xEnsureGitRepoCloned(b.allocator, repository_url, "723aa55e9752c8c6c25d3413722b5fe13d72ac4f", xSdkPath("/zig-cache/xcode_frameworks")) catch |err| @panic(@errorName(err));
+    xEnsureGitRepoCloned(b.allocator, repository_url, commit, xSdkPath("/zig-cache/xcode_frameworks")) catch |err| @panic(@errorName(err));
 
     step.addFrameworkPath(.{ .path = xSdkPath("/zig-cache/xcode_frameworks/Frameworks") });
     step.addSystemIncludePath(.{ .path = xSdkPath("/zig-cache/xcode_frameworks/include") });
