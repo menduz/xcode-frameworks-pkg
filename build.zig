@@ -26,6 +26,7 @@ pub fn addPaths(b: *std.Build, step: *std.build.CompileStep) void {
     xEnsureGitRepoCloned(b.allocator, repository_url, commit, xSdkPath("/zig-cache/xcode_frameworks")) catch |err| @panic(@errorName(err));
 
     step.addSystemFrameworkPath(.{ .path = xSdkPath("/zig-cache/xcode_frameworks/Frameworks") });
+    step.addFrameworkPath(.{ .path = xSdkPath("/zig-cache/xcode_frameworks/Frameworks") });
     step.addSystemIncludePath(.{ .path = xSdkPath("/zig-cache/xcode_frameworks/include") });
     step.addLibraryPath(.{ .path = xSdkPath("/zig-cache/xcode_frameworks/lib") });
 }
